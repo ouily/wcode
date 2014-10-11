@@ -10,6 +10,7 @@
 <?php echo $this->element('navbar'); ?>
 </div>
 <div id="container" class="container">
+	<?php echo $this->Session->flash(); ?>
 	<?php echo $content_for_layout ?>
 	<div class="well">
 		<?php echo $this->element('sql_dump'); ?>

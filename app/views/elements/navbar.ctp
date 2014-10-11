@@ -8,14 +8,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">W</a>
+      <a class="navbar-brand" href="<?php echo $this->Html->url('/'); ?>">W</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><?php echo $this->Html->link('Accueil', '/'); ?></li>
-        <li><?php echo $this->Html->link('Articles', array('controller' => 'articles', 'action' => 'index')); ?></li>
+        <?php if(isset($authentified) && $role == "admin") { ?>
+        <li><?php echo $this->Html->link('Publier un article', array('controller' => 'articles', 'action' => 'add', 'admin' => true)); ?></li>
+        <?php } ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if(!isset($authentified)) { ?>
@@ -26,7 +28,7 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="#"><?php echo $this->Html->link('Voir profil', array('controller' => 'users', 'action' => 'show')); ?></a></li>
             <li class="divider"></li>
-            <li><?php echo $this->Html->link('Se déconnecter', array('controller' => 'users', 'action' => 'logout')); ?></li>
+            <li><?php echo $this->Html->link('Se déconnecter', array('controller' => 'users', 'action' => 'logout', 'admin' => false)); ?></li>
           </ul>
         </li>
         <?php } ?>
