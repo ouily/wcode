@@ -3,24 +3,23 @@
 <html>
 <head>
 <title><?php echo $title_for_layout ?></title>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div id="header">
-<div id="menu" style="display: table; width: inherit; height: 50px; table-layout: fixed;">
-	<div style="display: table-cell; width: 150px;"><?php echo $this->Html->link('Articles', array('controller' => 'articles', 'action' => 'index')); ?></div>
-	<?php if(!isset($authentified)) { ?>
-	<div style="display: table-cell; width: 150px;"><?php echo $this->Html->link('Se connecter', array('controller' => 'users', 'action' => 'login')); ?></div>
-	<?php } else { ?>
-		<div style="display: table-cell; width: 150px;"><?php echo $this->Html->link('Mon profil', array('controller' => 'users', 'action' => 'show')); ?></div>
-		<div style="display: table-cell; width: 150px;"><?php echo $this->Html->link('Se déconnecter', array('controller' => 'users', 'action' => 'logout')); ?></div>
-	<?php } ?>
+<?php echo $this->element('navbar'); ?>
 </div>
-</div>
-<div id="container">
+<div id="container" class="container">
 	<?php echo $content_for_layout ?>
-	<?php echo $this->element('sql_dump'); ?>
+	<div class="well">
+		<?php echo $this->element('sql_dump'); ?>
+	</div>
 </div>
 <div id="footer"></div>
 </body>
+
 <?php echo $scripts_for_layout ?>
+<?php echo $this->Html->script('//code.jquery.com/jquery-1.11.1.min.js'); ?>
+<?php echo $this->Html->script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'); ?>
+<?php echo $this->Html->script('app.js'); ?>
 </html>

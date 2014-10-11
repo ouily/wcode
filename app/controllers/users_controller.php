@@ -2,6 +2,11 @@
 
 	class UsersController extends AppController {
 
+		public function beforeFilter() {
+			$this->Auth->flashElement = 'auth';
+			$this->Auth->loginError = "Connexion refusée. Merci de vérifier votre nom d'utilisateur et/ou votre mot de passe.";
+		}
+
 		/**
 		* login
 		* Permet à l'utilisateur de se connecter
