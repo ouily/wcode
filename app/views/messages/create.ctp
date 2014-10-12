@@ -1,3 +1,4 @@
+<?php echo $this->element('messages/menu'); ?>
 <h2>Rédiger un nouveau message</h2>
 <hr>
 <?php echo $form->create('Message'); ?>

@@ -1,4 +1,5 @@
-<h2>Liste des messages</h2>
+<?php echo $this->element('messages/menu'); ?>
+<h2><?php echo $label; ?></h2>
 <hr>
 <?php if(!empty($messages)) { ?>
 <table class="table table-condensed">
@@ -13,14 +14,14 @@
 	<tbody>
 		<?php foreach ($messages as $message) { ?>
 			<tr>
-				<td><?php echo $message['Message']['title']; ?></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td><?php echo $this->Html->link($message['Message']['title'], array('action' => 'show', $message['Message']['id'])); ?></td>
+				<td><?php echo $message['Sender']['username']; ?></td>
+				<td><?php echo date('d/m/Y H:i:s', strtotime($message['Message']['date'])); ?></td>
+				<td><?php echo $this->Html->link('Supprimer', array('action' => 'delete', $message['Message']['id']), null, "Confirmer la suppression?"); ?></td>
 			</tr>
 		<?php } ?>
 	</tbody>
 </table>
 <?php } else { ?>
-<p>Aucun mesage reçu.</p>
+<p>Aucun message.</p>
 <?php } ?>

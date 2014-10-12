@@ -21,6 +21,19 @@ class Message extends AppModel {
 			)
 		);
 
+	var $belongsTo = array(
+		'Sender' => array(
+			'className' => 'User',
+			'fields' => array('id', 'username'),
+			'foreignKey' => 'sender_id'
+			),
+		'Recipient' => array(
+			'className' => 'User',
+			'fields' => array('id', 'username'),
+			'foreignKey' => 'recipient_id'
+			)
+		);
+
 }
 
 ?>
