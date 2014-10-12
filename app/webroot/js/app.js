@@ -5,7 +5,7 @@ $(document).ready(function() {
      **/
 
     var $form = $('form');
-    $form.find('input[type="text"], input[type="password"], textarea').addClass('form-control');
+    $form.find('input[type="text"], input[type="password"], textarea, select').addClass('form-control');
 
     /**
      * Gestion du menu

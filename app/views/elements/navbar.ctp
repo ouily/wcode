@@ -15,9 +15,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><?php echo $this->Html->link('Accueil', '/'); ?></li>
+        <?php if(isset($authentified)) { ?>
+        <li><?php echo $this->Html->link('Messages', array('controller' => 'messages', 'action' => 'index', 'admin' => false)); ?></li>
+        <?php } ?>
         <?php if(isset($authentified) && $role == "admin") { ?>
         <li><?php echo $this->Html->link('Publier un article', array('controller' => 'articles', 'action' => 'add', 'admin' => true)); ?></li>
         <?php } ?>
+
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if(!isset($authentified)) { ?>
@@ -26,7 +30,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#"><?php echo $this->Html->link('Voir profil', array('controller' => 'users', 'action' => 'show')); ?></a></li>
+            <li><a href="#"><?php echo $this->Html->link('Voir profil', array('controller' => 'users', 'action' => 'show', 'admin' => false)); ?></a></li>
             <li class="divider"></li>
             <li><?php echo $this->Html->link('Se déconnecter', array('controller' => 'users', 'action' => 'logout', 'admin' => false)); ?></li>
           </ul>
