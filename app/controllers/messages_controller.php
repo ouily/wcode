@@ -27,7 +27,36 @@ class MessagesController extends AppController {
 		}
 
 		$messages = $this->Message->find('all', $conditions);
-		$this->set(compact('messages', 'label'));
+		$this->set(compact('messages', 'label', 'type'));
+	}
+
+	/**
+	* show
+	* Affichage du message
+	* @param $id ID du message
+	* On prendra soin de vérifier que l'utilisateur est bien autorisé à consulter le message (expéditeur ou destinataire)
+	* Si on est le destinataire on met R_STATE à 1 pour spécifier que le message a été lu.
+	**/
+
+	public function show($id) {
+		if($id) {
+			$user_id = $this->Auth->user('id');
+			$this->Message->id = $id;
+			$message = $this->Message->read();
+			$sender_id = $message['Message']['sender_id'];
+			$recipient_id = $message['Message']['recipient_id'];
+			if($user_id == $sender_id || $user_id == $recipient_id) {
+				if($user_id == $recipient_id && $message['Message']['r_state'] == 0) {
+					$this->Message->saveField('r_state', 1);
+				}
+				$this->set(compact('message'));
+			} else {
+				$this->Session->setFlash("Vous n'êtes pas autorisé à consulter ce message", 'flash/alert_error');
+				$this->redirect(array('action' => 'index'));
+			}
+		} else {
+			$this->cakeError('error404');
+		}
 	}
 
 	/**
@@ -73,6 +102,8 @@ class MessagesController extends AppController {
 	* - la suppression physique
 	* - la suppression virtuelle
 	* Qu'on soit l'expéditeur ou le destinataire on ne supprime le message physiquement que si l'autre l'a déjà fait
+	* S_STATE: état du message pour l'expéditeur. 0 = valeur par défaut, 1 = supprimé
+	* R_STATE: état du message pour le destinataire. 0 = valeur par défaut, 1 = lu, 2 = supprimé
 	**/
 	public function delete($id = null) {
 		if($id) {
