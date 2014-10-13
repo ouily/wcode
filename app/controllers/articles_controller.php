@@ -22,11 +22,19 @@ class ArticlesController extends AppController {
 	* show
 	* On affiche l'article
 	* @param $id
+	*
+	* On vérifie que le slug est le bon
 	**/
 
-	public function show($id = null) {
+	public function show($id = null, $slug = null) {
 		if($id) {
 			$article = $this->Article->find('first', array('conditions' => array('Article.id' => $id)));
+			if(!$article) {
+				$this->cakeError('error404');
+			}
+			if($article['Article']['slug'] != $slug) {
+				$this->redirect($article['Article']['url']);
+			}
 			$this->set(compact('article'));
 		}
 	}
