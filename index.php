@@ -1,5 +1,5 @@
 <?php
-/**/
+/* test */
 /**
  * Requests collector.
  *
